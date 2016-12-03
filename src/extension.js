@@ -2,45 +2,54 @@ var main = function () {
 
     var runs = 0;
 
-    var intervalId = setInterval(function (jQuery) {
+    var intervalId = setInterval(function () {
 
         runs++;
 
-        // Get transaction history in reverse chronological order.
-        var transactions = jQuery('table.card-activity tbody tr.summary').get().reverse();
-
-        // Give up if transaction history has not loaded in 5 seconds.
-        if (runs > 50) {
+        // Give up if transaction history has not loaded in 10 seconds.
+        if (runs > 100) {
             clearInterval(intervalId);
             return;
         }
+
+        // Return early while waiting for jQuery to load.
+        if (typeof $ !== 'function') {
+            return;
+        }
+
+        // Get transaction history in reverse chronological order.
+        var transactions = $('#creditCardTransTable tbody tr.border').get().reverse();
 
         // Return early while waiting for transaction history to load.
         if (transactions.length == 0) {
             return;
         }
 
-        // Adjust activity table and add Balance column.
-        jQuery('table.card-activity colgroup col:nth-child(6)').width = '5%';
-        jQuery('table.card-activity colgroup').appendTo('<col width="13%"');
-        jQuery('tr.divider').find('td').attr('colspan', 8);
-        jQuery('table.card-activity thead tr').append('<th class="header"><span class="under">Balance</span>&nbsp;&nbsp;&nbsp;</th>');
+        // Add Balance column.
+        $('#creditCardTransTable thead tr').append('<th scope="col" class="sortable amount">Balance</th>');
 
         // Find balance last statement and use it as running balance.
-        var runningBalance = parseFloat(jQuery('td:contains(Balance last statement)').last().next().text().replace(/[$,]+/g, ''));
+        var runningBalance = amountToNumber($('#accountLastStatementBalance').text());
 
         // Calculate and display running balance for each transaction.
-        jQuery(transactions).each(function () {
-            var transactionAmount = parseFloat(jQuery(this).find('td').last().text().replace(/[$,]+/g, ''));
+        $(transactions).each(function () {
+            var transactionAmount = amountToNumber($(this).find('.amount').text());
             runningBalance += transactionAmount;
-            jQuery(this).append('<td>$' + runningBalance.toFixed(2) + '</td>');
+
+            // Clone an Amount cell to easily create a similar-looking Balance cell.
+            var balanceCell = $(this).find('td.amount').clone();
+            balanceCell.find('span').text('$' + runningBalance.toLocaleString("en-US"));
+            $(this).append(balanceCell);
         });
 
         clearInterval(intervalId);
 
-    }, 100, jQuery);
+    }, 100);
 
-}
+    function amountToNumber(text) {
+        return parseFloat(text.replace('\u2013', '-').replace(/[$,]+/g, ''));
+    }
+};
 
 var script = document.createElement('script');
 script.type = "text/javascript";

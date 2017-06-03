@@ -38,7 +38,7 @@ var main = function () {
 
             // Clone an Amount cell to easily create a similar-looking Balance cell.
             var balanceCell = $(this).find('td.amount').clone();
-            balanceCell.find('span').text('$' + runningBalance.toLocaleString("en-US"));
+            balanceCell.find('span').text('$' + runningBalance.toLocaleString("en-US", {minimumFractionDigits: 2}));
             $(this).append(balanceCell);
         });
 

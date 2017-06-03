@@ -47,7 +47,7 @@ var main = function () {
     }, 100);
 
     function amountToNumber(text) {
-        return parseFloat(text.replace('\u2013', '-').replace(/[$,]+/g, ''));
+        return parseFloat(text.replace('\u2212', '-').replace(/[$,]+/g, ''));
     }
 };
 

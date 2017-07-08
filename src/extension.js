@@ -17,8 +17,8 @@ var main = function () {
             return;
         }
 
-        // Get transaction history in reverse chronological order.
-        var transactions = $('#creditCardTransTable tbody tr.border').get().reverse();
+        // Get transaction history.
+        var transactions = $('#creditCardTransTable tbody tr.border').get();
 
         // Return early while waiting for transaction history to load.
         if (transactions.length == 0) {
@@ -28,18 +28,18 @@ var main = function () {
         // Add Balance column.
         $('#creditCardTransTable thead tr').append('<th scope="col" class="sortable amount">Balance</th>');
 
-        // Find balance last statement and use it as running balance.
-        var runningBalance = amountToNumber($('#accountLastStatementBalance').text());
+        // Find current balance and use it as running balance.
+        var runningBalance = amountToNumber($('#accountCurrentBalance').text());
 
         // Calculate and display running balance for each transaction.
         $(transactions).each(function () {
-            var transactionAmount = amountToNumber($(this).find('.amount').text());
-            runningBalance += transactionAmount;
-
             // Clone an Amount cell to easily create a similar-looking Balance cell.
             var balanceCell = $(this).find('td.amount').clone();
             balanceCell.find('span').text('$' + runningBalance.toLocaleString("en-US", {minimumFractionDigits: 2}));
             $(this).append(balanceCell);
+
+            var transactionAmount = amountToNumber($(this).find('.amount').first().text());
+            runningBalance -= transactionAmount;
         });
 
         clearInterval(intervalId);

@@ -69,7 +69,7 @@ var main = function () {
         $('#creditCardTransTable thead tr').append('<th scope="col" class="sortable amount running-balance-ext">Balance</th>');
 
         // Find current balance and use it as running balance.
-        var runningBalance = amountToNumber($('#accountCurrentBalance').text());
+        var runningBalance = amountToNumber($('#accountCurrentBalanceWithToolTipValue').text());
 
         log("Calculate and display running balance");
 

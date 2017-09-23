@@ -1,7 +1,7 @@
 {
   "name": "Running Balance for Chase",
   "description": "Adds running balance column to credit card transaction history in Chase Online Banking",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "manifest_version": 2,
   "content_scripts": [
     {

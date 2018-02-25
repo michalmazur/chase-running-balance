@@ -69,7 +69,17 @@ var main = function () {
         $('#creditCardTransTable thead tr').append('<th scope="col" class="sortable amount running-balance-ext">Balance</th>');
 
         // Find current balance and use it as running balance.
+        // The following ID exists on the page if the user has more than one credit card.
         var runningBalance = amountToNumber($('#accountCurrentBalanceWithToolTipValue').text());
+
+        // The following ID exists on the page if the user has only one credit card.
+        if (isNaN(runningBalance)) {
+            runningBalance = amountToNumber($('#accountCurrentBalanceValue').text());
+        }
+
+        if (isNaN(runningBalance)) {
+            log("Unable to determine current balance");
+        }
 
         log("Calculate and display running balance");
 

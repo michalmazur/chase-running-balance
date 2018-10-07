@@ -8,9 +8,9 @@ var main = function () {
 
         runs++;
 
-        // Give up if transaction history has not loaded in 10 seconds.
+        // Give up if #flyoutWrapper has not loaded in 10 seconds.
         if (runs > 100) {
-            log("Clear interval (history not loaded)");
+            log("Clear interval (#flyoutWrapper missing)");
             clearInterval(intervalId);
             return;
         }
@@ -21,9 +21,9 @@ var main = function () {
         }
 
         // Configure MutationObserver and try to display running balance.
-        // Return early while waiting for transactions to load.
-        var activityTransactions = $('#activity-transactions');
-        if (activityTransactions.length > 0) {
+        // Return early while waiting for #flyoutWrapper to load.
+        var flyoutWrapper = $('#flyoutWrapper');
+        if (flyoutWrapper.length > 0) {
             displayRunningBalance();
 
             log("Configure MutationObserver");
@@ -31,7 +31,7 @@ var main = function () {
                 displayRunningBalance();
             });
 
-            observer.observe(activityTransactions[0], {
+            observer.observe(flyoutWrapper[0], {
                 attributes: true,
                 subtree: true
             });
@@ -51,7 +51,7 @@ var main = function () {
         $('.running-balance-ext').remove();
 
         // Get transaction history.
-        var transactions = $('#creditCardTransTable tbody tr.border').get();
+        var transactions = $('#activityTable tbody tr').get();
 
         // Return early while waiting for transaction history to load.
         if (transactions.length == 0) {
@@ -66,11 +66,11 @@ var main = function () {
         }
 
         // Add Balance column.
-        $('#creditCardTransTable thead tr').append('<th scope="col" class="sortable amount running-balance-ext">Balance</th>');
+        $('#activityTable thead tr').append('<th class="amount running-balance-ext"><span class="TABLEHEADER">Balance</span></th>');
 
         // Find current balance and use it as running balance.
         // The following ID exists on the page if the user has more than one credit card.
-        var runningBalance = amountToNumber($('#accountCurrentBalanceWithToolTipValue').text());
+        var runningBalance = amountToNumber($('#accountCurrentBalanceLinkValue').text());
 
         // The following ID exists on the page if the user has only one credit card.
         if (isNaN(runningBalance)) {
@@ -89,7 +89,7 @@ var main = function () {
             var balanceCell = $(this).find('td.amount').clone();
             balanceCell.addClass('running-balance-ext');
             balanceCell.find('span').text('$' + runningBalance.toLocaleString("en-US", {minimumFractionDigits: 2}));
-            $(this).append(balanceCell);
+            balanceCell.insertBefore($(this).find('td.util'));
 
             var transactionAmount = amountToNumber($(this).find('.amount').first().text());
             runningBalance -= transactionAmount;

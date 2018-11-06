@@ -50,8 +50,11 @@ var main = function () {
         // Remove Balance column if it already exists.
         $('.running-balance-ext').remove();
 
+        // Find the account activity table (exclude pending transactions)
+        var activityTable = $('#slideInAccountsActivity > .transaction-widget-container > .overview-activity-container #activityTable');
+
         // Get transaction history.
-        var transactions = $('#activityTable tbody tr').get();
+        var transactions = activityTable.find('tbody tr').get();
 
         // Return early while waiting for transaction history to load.
         if (transactions.length == 0) {
@@ -66,7 +69,7 @@ var main = function () {
         }
 
         // Add Balance column.
-        $('#activityTable thead tr').append('<th class="amount running-balance-ext"><span class="TABLEHEADER">Balance</span></th>');
+        activityTable.find('thead tr').append('<th class="amount running-balance-ext"><span class="TABLEHEADER">Balance</span></th>');
 
         // Find current balance and use it as running balance.
         // The following ID exists on the page if the user has more than one credit card.

@@ -63,7 +63,7 @@ var main = function () {
         }
 
         // Return early if an unsupported view is active.
-        if (!['Activity since last statement', 'All transactions'].includes($('#header-transactionTypeOptions').val())) {
+        if (!['Activity since last statement', 'All transactions'].includes($('#header-transactionTypeOptions .header-text').text())) {
             log("Unsupported view");
             return;
         }

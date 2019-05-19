@@ -69,7 +69,7 @@ var main = function () {
         }
 
         // Add Balance column.
-        activityTable.find('thead tr').append('<th class="amount running-balance-ext"><span class="TABLEHEADER">Balance</span></th>');
+        activityTable.find('thead tr th.amount').after('<th class="amount running-balance-ext"><span class="TABLEHEADER">Balance</span></th>');
 
         // Find current balance and use it as running balance.
         // The following ID exists on the page if the user has more than one credit card.

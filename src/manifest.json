@@ -6,24 +6,25 @@
   "content_scripts": [
     {
       "matches": [
-        "https://secure01a.chase.com/web/auth/dashboard/*",
-        "https://secure01b.chase.com/web/auth/dashboard/*",
-        "https://secure01c.chase.com/web/auth/dashboard/*",
-        "https://secure02a.chase.com/web/auth/dashboard/*",
-        "https://secure02b.chase.com/web/auth/dashboard/*",
-        "https://secure02c.chase.com/web/auth/dashboard/*",
-        "https://secure03a.chase.com/web/auth/dashboard/*",
-        "https://secure03b.chase.com/web/auth/dashboard/*",
-        "https://secure03c.chase.com/web/auth/dashboard/*",
-        "https://secure04a.chase.com/web/auth/dashboard/*",
-        "https://secure04b.chase.com/web/auth/dashboard/*",
-        "https://secure04c.chase.com/web/auth/dashboard/*",
-        "https://secure05a.chase.com/web/auth/dashboard/*",
-        "https://secure05b.chase.com/web/auth/dashboard/*",
-        "https://secure05c.chase.com/web/auth/dashboard/*",
-        "https://secure07a.chase.com/web/auth/dashboard/*",
-        "https://secure07b.chase.com/web/auth/dashboard/*",
-        "https://secure07c.chase.com/web/auth/dashboard/*"
+        "https://secure01a.chase.com/web/auth/*",
+        "https://secure01b.chase.com/web/auth/*",
+        "https://secure01c.chase.com/web/auth/*",
+        "https://secure02a.chase.com/web/auth/*",
+        "https://secure02b.chase.com/web/auth/*",
+        "https://secure02c.chase.com/web/auth/*",
+        "https://secure03a.chase.com/web/auth/*",
+        "https://secure03b.chase.com/web/auth/*",
+        "https://secure03c.chase.com/web/auth/*",
+        "https://secure04a.chase.com/web/auth/*",
+        "https://secure04b.chase.com/web/auth/*",
+        "https://secure04c.chase.com/web/auth/*",
+        "https://secure05a.chase.com/web/auth/*",
+        "https://secure05b.chase.com/web/auth/*",
+        "https://secure05c.chase.com/web/auth/*",
+        "https://secure07a.chase.com/web/auth/*",
+        "https://secure07b.chase.com/web/auth/*",
+        "https://secure07c.chase.com/web/auth/*",
+        "https://secure07c.chase.com/web/auth/*"
       ],
       "js": ["extension.js"]
     }
